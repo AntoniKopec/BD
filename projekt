@@ -1,0 +1,267 @@
+--1 Tworzenie bazy Serwis_rowerowy
+
+--CREATE DATABASE Serwis_rowerowy
+
+
+
+
+--2 Tworzenie tabel i kolumn
+/*
+CREATE TABLE Klient (
+IdKlienta INT IDENTITY(1,1) PRIMARY KEY,
+IdZakupu INT NOT NULL,
+Imie NVARCHAR(50) NOT NULL,
+Nazwisko NVARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE Zakup (
+IdZakupu INT IDENTITY(1,1) PRIMARY KEY,
+IdCzesci INT NULL,
+IdUslugi INT NULL,
+IdPracownika INT NOT NULL,
+CenaUslugi MONEY NULL,
+IloscUslug INT NULL,
+CenaCzesci MONEY NULL,
+IloscCzesci INT NULL,
+Suma MONEY NOT NULL
+);
+
+
+CREATE TABLE Czesci (
+IdCzesci INT IDENTITY(1,1) PRIMARY KEY,
+IdKola INT NULL,
+IdDetki INT NULL,
+IdOpony INT NULL,
+IdPiasty INT NULL,
+IdKorby INT NULL,
+IdLancucha INT NULL,
+IdPrzerzutki INT NULL,
+IdKasety INT NULL,
+IdWidelca INT NULL,
+IdSiodla INT NULL,
+Nazwa NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Usluga(
+IdUslugi INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Pracownik (
+IdPracownika INT IDENTITY(1,1) PRIMARY KEY,
+Imie NVARCHAR(50) NOT NULL,
+Nazwisko NVARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE Kolo (
+IdKola INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Detka (
+IdDetki INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Opona (
+IdOpony INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Piasta (
+IdPiasty INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Korba (
+IdKorby INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+IloscRzedow INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Lancuch (
+IdLancucha INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+LiczbaOgniw INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Przerzutka (
+IdPrzerzutki INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Kaseta(
+IdKasety INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+IloscPrzelozen INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Widelec (
+IdWidelca INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Siodlo (
+IdSiodla INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+*/
+
+
+--3 Klucze obce
+/*
+ALTER TABLE Klient
+ADD FOREIGN KEY (IdZakupu)
+REFERENCES Zakup (IdZakupu);
+
+ALTER TABLE Zakup
+ADD FOREIGN KEY (IdCzesci)
+REFERENCES Czesci (IdCzesci);
+
+ALTER TABLE Zakup
+ADD FOREIGN KEY (IdUslugi)
+REFERENCES Usluga (IdUslugi);
+
+ALTER TABLE Zakup
+ADD FOREIGN KEY (IdPracownika)
+REFERENCES Pracownik (IdPracownika);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdKola)
+REFERENCES Kolo (IdKola);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdDetki)
+REFERENCES Detka (IdDetki);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdOpony)
+REFERENCES Opona (IdOpony);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdPiasty)
+REFERENCES Piasta (IdPiasty);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdKorby)
+REFERENCES Korba (IdKorby);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdLancucha)
+REFERENCES Lancuch (IdLancucha);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdPrzerzutki)
+REFERENCES Przerzutka (IdPrzerzutki);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdKasety)
+REFERENCES Kaseta (IdKasety);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdWidelca)
+REFERENCES Widelec (IdWidelca);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdSiodla)
+REFERENCES Siodlo (IdSiodla);
+*/
+
+--4 Ograniczenia
+/*
+ALTER TABLE Zakup
+ADD CHECK (Suma > 0);
+ALTER TABLE Zakup
+ADD CHECK (CenaUslugi > 0);
+ALTER TABLE Zakup
+ADD CHECK (CenaCzesci > 0);
+ALTER TABLE Zakup
+ADD CHECK (IloscUslug > 0);
+ALTER TABLE Zakup
+ADD CHECK (IloscCzesci > 0);
+
+ALTER TABLE Kolo
+ADD CHECK (Rozmiar > 0);
+ALTER TABLE Kolo
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Detka
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Opona
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Piasta
+ADD CHECK (Rozmiar > 0);
+ALTER TABLE Piasta
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Korba
+ADD CHECK (IloscRzedow > 0);
+ALTER TABLE Kolo
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Siodlo
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Widelec
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Kaseta
+ADD CHECK (IloscPrzelozen > 0);
+ALTER TABLE Kaseta
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Przerzutka
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Lancuch
+ADD CHECK (LiczbaOgniw > 0);
+ALTER TABLE Lancuch
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Usluga
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Czesci
+ADD CHECK (Cena > 0);
+*/
