@@ -14,5 +14,3 @@ SELECT
 AS NullCount
 FROM
     Czesci
-ORDER BY 
-    NullCount DESC
