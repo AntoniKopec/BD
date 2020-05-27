@@ -1,6 +1,4 @@
---Antoni Kopec
-USE Serwis_rowerowy
-GO
+Zostanie zaimplementowana procedura zliczająca puste kolumny w wierszu.
 
 SELECT 
 ((CASE WHEN (IdDetki IS NULL THEN 1 ELSE 0 END)
@@ -13,5 +11,8 @@ SELECT
 + (CASE WHEN IdWidelca IS NULL THEN 1 ELSE 0 END)
 + (CASE WHEN IdSiodla  IS NULL THEN 1 ELSE 0 END))
 AS NullCount
-FROM
-    Czesci
+FROM Czesci;
+
+
+Tak żeby nie usupełniono więcej niż jednej kolumny.
+Według założenia może być podane tylko jedno id.
