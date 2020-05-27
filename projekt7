@@ -1,4 +1,4 @@
-Zostanie zaimplementowana procedura zliczająca puste kolumny w wierszu.
+Zostanie zaimplementowana procedura używająca zliczanie pustych kolumn w wierszu.
 
 SELECT 
 ((CASE WHEN (IdDetki IS NULL THEN 1 ELSE 0 END)
