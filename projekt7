@@ -1,7 +1,7 @@
 Zostanie zaimplementowana procedura używająca zliczanie pustych kolumn w wierszu.
 
 SELECT 
-((CASE WHEN (IdDetki IS NULL THEN 1 ELSE 0 END)
+((CASE WHEN IdDetki IS NULL THEN 1 ELSE 0 END)
 + (CASE WHEN IdOpony IS NULL THEN 1 ELSE 0 END)
 + (CASE WHEN IdPiasty IS NULL THEN 1 ELSE 0 END)
 + (CASE WHEN IdKorby IS NULL THEN 1 ELSE 0 END)
