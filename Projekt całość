@@ -1,0 +1,655 @@
+--1 Tworzenie bazy Serwis_rowerowy
+
+--CREATE DATABASE Serwis_rowerowy
+
+
+
+
+--2 Tworzenie tabel i kolumn
+/*
+CREATE TABLE Klient (
+IdKlienta INT IDENTITY(1,1) PRIMARY KEY,
+IdZakupu INT NOT NULL,
+Imie NVARCHAR(50) NOT NULL,
+Nazwisko NVARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE Zakup (
+IdZakupu INT IDENTITY(1,1) PRIMARY KEY,
+IdCzesci INT NULL,
+IdUslugi INT NULL,
+IdPracownika INT NOT NULL,
+CenaUslugi MONEY NULL,
+IloscUslug INT NULL,
+CenaCzesci MONEY NULL,
+IloscCzesci INT NULL,
+Suma MONEY NOT NULL
+);
+
+
+CREATE TABLE Czesci (
+IdCzesci INT IDENTITY(1,1) PRIMARY KEY,
+IdKola INT NULL,
+IdDetki INT NULL,
+IdOpony INT NULL,
+IdPiasty INT NULL,
+IdKorby INT NULL,
+IdLancucha INT NULL,
+IdPrzerzutki INT NULL,
+IdKasety INT NULL,
+IdWidelca INT NULL,
+IdSiodla INT NULL,
+Nazwa NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Usluga(
+IdUslugi INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Pracownik (
+IdPracownika INT IDENTITY(1,1) PRIMARY KEY,
+Imie NVARCHAR(50) NOT NULL,
+Nazwisko NVARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE Kolo (
+IdKola INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Detka (
+IdDetki INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Opona (
+IdOpony INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Piasta (
+IdPiasty INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Rozmiar INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Korba (
+IdKorby INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+IloscRzedow INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Lancuch (
+IdLancucha INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+LiczbaOgniw INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Przerzutka (
+IdPrzerzutki INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Kaseta(
+IdKasety INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+IloscPrzelozen INT NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Widelec (
+IdWidelca INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+
+
+CREATE TABLE Siodlo (
+IdSiodla INT IDENTITY(1,1) PRIMARY KEY,
+Nazwa NVARCHAR(50) NOT NULL,
+Firma NVARCHAR(50) NOT NULL,
+Cena MONEY NOT NULL
+);
+*/
+
+
+--3 Klucze obce
+/*
+ALTER TABLE Klient
+ADD FOREIGN KEY (IdZakupu)
+REFERENCES Zakup (IdZakupu);
+
+ALTER TABLE Zakup
+ADD FOREIGN KEY (IdCzesci)
+REFERENCES Czesci (IdCzesci);
+
+ALTER TABLE Zakup
+ADD FOREIGN KEY (IdUslugi)
+REFERENCES Usluga (IdUslugi);
+
+ALTER TABLE Zakup
+ADD FOREIGN KEY (IdPracownika)
+REFERENCES Pracownik (IdPracownika);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdKola)
+REFERENCES Kolo (IdKola);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdDetki)
+REFERENCES Detka (IdDetki);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdOpony)
+REFERENCES Opona (IdOpony);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdPiasty)
+REFERENCES Piasta (IdPiasty);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdKorby)
+REFERENCES Korba (IdKorby);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdLancucha)
+REFERENCES Lancuch (IdLancucha);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdPrzerzutki)
+REFERENCES Przerzutka (IdPrzerzutki);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdKasety)
+REFERENCES Kaseta (IdKasety);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdWidelca)
+REFERENCES Widelec (IdWidelca);
+
+ALTER TABLE Czesci
+ADD FOREIGN KEY (IdSiodla)
+REFERENCES Siodlo (IdSiodla);
+*/
+
+--4 Ograniczenia
+/*
+ALTER TABLE Zakup
+ADD CHECK (Suma > 0);
+ALTER TABLE Zakup
+ADD CHECK (CenaUslugi > 0);
+ALTER TABLE Zakup
+ADD CHECK (CenaCzesci > 0);
+ALTER TABLE Zakup
+ADD CHECK (IloscUslug > 0);
+ALTER TABLE Zakup
+ADD CHECK (IloscCzesci > 0);
+
+ALTER TABLE Kolo
+ADD CHECK (Rozmiar > 0);
+ALTER TABLE Kolo
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Detka
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Opona
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Piasta
+ADD CHECK (Rozmiar > 0);
+ALTER TABLE Piasta
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Korba
+ADD CHECK (IloscRzedow > 0);
+ALTER TABLE Kolo
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Siodlo
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Widelec
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Kaseta
+ADD CHECK (IloscPrzelozen > 0);
+ALTER TABLE Kaseta
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Przerzutka
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Lancuch
+ADD CHECK (LiczbaOgniw > 0);
+ALTER TABLE Lancuch
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Usluga
+ADD CHECK (Cena > 0);
+
+ALTER TABLE Czesci
+ADD CHECK (Cena > 0);
+*/
+
+/*
+DROP TRIGGER IF EXISTS tr_NullCount
+GO
+
+CREATE TRIGGER tr_NullCount
+ON Czesci
+INSTEAD OF UPDATE 
+AS 
+BEGIN
+	DECLARE @IdCzesciDoEdycji AS INT
+	SET @IdCzesciDoEdycji = (SELECT i.IdCzesci FROM inserted i)
+
+	DECLARE @IdKolaDoEdycji AS INT
+	SET @IdKolaDoEdycji = (SELECT i.IdKola FROM inserted i)
+
+	DECLARE @IdDetkiDoEdycji AS INT
+	SET @IdDetkiDoEdycji = (SELECT i.IdDetki FROM inserted i)
+
+	DECLARE @IdOponyDoEdycji AS INT
+	SET @IdOponyDoEdycji = (SELECT i.IdOpony FROM inserted i)
+
+	DECLARE @IdPiastyDoEdycji AS INT
+	SET @IdPiastyDoEdycji = (SELECT i.IdPiasty FROM inserted i)
+
+	DECLARE @IdKorbyDoEdycji AS INT
+	SET @IdKorbyDoEdycji = (SELECT i.IdKorby FROM inserted i)
+
+	DECLARE @IdLancuchaDoEdycji AS INT
+	SET @IdLancuchaDoEdycji = (SELECT i.IdLancucha FROM inserted i)
+
+	DECLARE @IdPrzerzutkiDoEdycji AS INT
+	SET @IdPrzerzutkiDoEdycji = (SELECT i.IdPrzerzutki FROM inserted i)
+
+	DECLARE @IdKasetyDoEdycji AS INT
+	SET @IdKasetyDoEdycji = (SELECT i.IdKasety FROM inserted i)
+
+	DECLARE @IdWidelcaDoEdycji AS INT
+	SET @IdWidelcaDoEdycji = (SELECT i.IdWidelca FROM inserted i)
+
+	DECLARE @IdSiodlaDoEdycji AS INT
+	SET @IdSiodlaDoEdycji = (SELECT i.IdSiodla FROM inserted i)
+
+	DECLARE @NazwaDoEdycji AS NVARCHAR(50)
+	SET @NazwaDoEdycji = (SELECT i.Nazwa FROM inserted i)
+
+	DECLARE @CenaDoEdycji AS NVARCHAR(50)
+	SET @CenaDoEdycji = (SELECT i.Cena FROM inserted i)
+	
+	IF(SELECT 
+	((CASE WHEN IdDetki IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdOpony IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdPiasty IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdKorby IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdLancucha IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdPrzerzutki IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdKasety IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdWidelca IS NULL THEN 1 ELSE 0 END)
+	+ (CASE WHEN IdSiodla  IS NULL THEN 1 ELSE 0 END))
+	AS NullCount
+	FROM Czesci) > 1
+	BEGIN
+		RAISERROR('Złe dane urzytkowniku', 16, 1)
+	END
+	ELSE
+	BEGIN
+		UPDATE Czesci 
+		SET
+		IdKola = @IdKolaDoEdycji,
+		IdDetki = @IdDetkiDoEdycji,
+		IdOpony = @IdOponyDoEdycji,
+		IdPiasty = @IdPiastyDoEdycji,
+		IdKorby = @IdKorbyDoEdycji,
+		IdLancucha = @IdLancuchaDoEdycji,
+		IdPrzerzutki = @IdPrzerzutkiDoEdycji,
+		IdKasety = @IdKasetyDoEdycji,
+		IdWidelca = @IdWidelcaDoEdycji,
+		IdSiodla = @IdSiodlaDoEdycji,
+		Nazwa = @NazwaDoEdycji,
+		Cena = @CenaDoEdycji
+		WHERE
+		IdCzesci = @IdCzesciDoEdycji
+	END
+END
+GO
+*/
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+--Wprowadzanie danych
+/*
+
+--Detki
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('MTB','CONTINENTAL','27.5/50',22.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('MTB','CONTINENTAL','27.5/52',22.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('MTB','CONTINENTAL','27.5/54',22.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('MTB','CONTINENTAL','26/50',24.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('MTB','CONTINENTAL','26/54',24.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('MTB','CONTINENTAL','26/57',24.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('Tour','CONTINENTAL','28/35',25.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('Tour','CONTINENTAL','28/37',25.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('Standard','MITAS','29/50',19.99)
+INSERT INTO Detka(Nazwa,Firma,Rozmiar,Cena) VALUES ('Standard','MITAS','29/54',19.99)
+
+
+
+--kasety
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('CS-HG41','SHIMANO',7,64.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('CS-HG400','SHIMANO',9,89.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('Alivio','SHIMANO',9,92.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('CS-R7000','SHIMANO',11,175.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('CS-R8000','SHIMANO',11,280.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('ULTEGRA','SHIMANO',11,245.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('PG-820','SRAM',8,55.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('PG-1050','SRAM',10,259.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('MF-TZ50','SHIMANO',6,44.99)
+INSERT INTO Kaseta(Nazwa,Firma,IloscPrzelozen,Cena) VALUES ('MF-TZ50','SHIMANO',7,44.99)
+
+
+--Kola
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Stars','WHEELS',24,49.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Stars','WHEELS',28,49.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Swift','WHEELS',28,279.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('Spline','DT SWISS',29,1399.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Swift-al','WHEELS',26,69.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Stars','WHEELS',28,49.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Swift','WHEELS',28,279.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('Sperk','DT SWISS',29,899.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('MFG Swift-S','WHEELS',28,379.99)
+INSERT INTO Kolo(Nazwa,Firma,Rozmiar,Cena) VALUES ('Speed','DT SWISS',28,1599.99)
+
+
+--Korba
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('Claris','SHIMANO',2,224.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('Alivio','SHIMANO',3,229.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('FC-T4060','SHIMANO',3,239.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('Sora','SHIMANO',2,264.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('Tiagra','SHIMANO',2,329.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('FC-4700','SHIMANO',2,224.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('Deore','SHIMANO',3,399.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('Zee','SHIMANO',1,424.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('FC-T6010','SHIMANO',2,274.99)
+INSERT INTO Korba(Nazwa,Firma,IloscRzedow,Cena) VALUES ('FC-R3000','SHIMANO',3,324.99)
+
+
+--Lancuch
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('AC-232','ACCENT',116,29.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('SLX','SHIMANO',116,129.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('CN-837','SHIMANO',116,49.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('107-11','SHIMANO',116,99.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('Deore','SHIMANO',114,80.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('XT-CN','SHIMANO',114,110.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('Ultegra','SHIMANO',114,139.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('Ultegra','SHIMANO',116,139.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('AC-102','ACCENT',116,24.99)
+INSERT INTO Lancuch(Nazwa,Firma,LiczbaOgniw,Cena) VALUES ('AC-121','ACCENT',114,35.99)
+
+
+--Opona
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Race King','CONTINENTAL','27/50',67.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Race King','CONTINENTAL','28/50',67.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Race King','CONTINENTAL','29/50',67.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Marathon','SCHWALBE','26/38',89.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Marathon','SCHWALBE','27/38',89.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Marathon','SCHWALBE','28/38',89.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Marathon','SCHWALBE','24/38',89.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Roller Sport','KENDA','24/28',40.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Roller Sport','KENDA','26/28',40.99)
+INSERT INTO Opona(Nazwa,Firma,Rozmiar,Cena) VALUES ('Roller Sport','KENDA','27/28',40.99)
+
+
+--Piasta
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('Deore','SHIMANO',32,56.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('Deore-HB','SHIMANO',32,99.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('Deore-NT','SHIMANO',28,76.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('A1732','NOVATEC',24,69.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('A1732','NOVATEC',28,89.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('A1232','NOVATEC',32,129.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('StraightPull-T','DT SWISS',24,499.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('StraightPull-T','DT SWISS',28,499.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('StraightPull-T','DT SWISS',32,499.99)
+INSERT INTO Piasta(Nazwa,Firma,Rozmiar,Cena) VALUES ('StraightPull-P','DT SWISS',28,219.99)
+
+
+--Przerzutka
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('X3','SRAM',89.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('X4','SRAM',109.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('NX','SRAM',289.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('GX','SRAM',449.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('XX1','SRAM',2739.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('Altus','SHIMANO',49.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('Dore','SHIMANO',109.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('Dore-RD','SHIMANO',159.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('Ultegra','SHIMANO',179.99)
+INSERT INTO Przerzutka(Nazwa,Firma,Cena) VALUES ('Alivio','SHIMANO',129.99)
+
+--Siodlo
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Series-H','AVENIR',59.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Series-S','AVENIR',59.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Series-R','AVENIR',59.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Derry','ACCENT',64.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Zone','ACCENT',64.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Monza','ACCENT',61.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Veno','ACCENT',59.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('FLX','SPORTOURER',65.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Zoo-M','SPORTOURER',65.99)
+INSERT INTO Siodlo(Nazwa,Firma,Cena) VALUES ('Zoo-L','SPORTOURER',49.99)
+
+--Widelec
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('MTB','UNIBIKE',54.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('TREK','UNIBIKE',59.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('30-S','ROCK',599.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('Jody','ROCK',549.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('Recon','ROCK',759.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('Reba','ROCK',1599.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('XCT','SUNTOUR',179.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('XCM','SUNTOUR',199.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('XCT-SR','SUNTOUR',209.99)
+INSERT INTO Widelec(Nazwa,Firma,Cena) VALUES ('NRX','SUNTOUR',499.99)
+*/
+
+
+
+
+/*
+--
+--czesci
+
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (1,'MFG Stars',49.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (2,'MFG Stars',49.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (3,'MFG Swift',279.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (4,'Spline',1399.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (5,'MFG Swift-al',69.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (6,'MFG Stars',49.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (7,'MFG Swift',279.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (8,'Sperk',899.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (9,'MFG Swift-S',379.99)
+INSERT INTO Czesci(IdKola,Nazwa,Cena) VALUES (10,'Speed',1599.99)
+
+
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (1,'MTB',29.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (2,'MTB',29.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (3,'MTB',29.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (4,'MTB',24.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (5,'MTB',24.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (6,'MTB',24.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (7,'Tour',25.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (8,'Tour',25.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (9,'Standard',19.99)
+INSERT INTO Czesci(IdDetki,Nazwa,Cena) VALUES (10,'Standard',19.99)
+
+
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (1,'CS-HG41',64.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (2,'CS-HG400',89.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (3,'Alivio',92.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (4,'CS-R7000',175.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (5,'CS-R8000',280.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (6,'ULTEGRA',245.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (7,'PG-820',55.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (8,'PG-1050',259.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (9,'MF-TZ50',44.99)
+INSERT INTO Czesci(IdKasety,Nazwa,Cena) VALUES (10,'MF-TZ50',44.99)
+
+
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (1,'Claris',224.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (2,'Alivio',299.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (3,'FC-T4060',239.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (4,'Sora',264.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (5,'Tiagra',329.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (6,'FC-4700',224.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (7,'Deore',399.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (8,'Zee',424.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (9,'FC-T6010',274.99)
+INSERT INTO Czesci(IdKorby,Nazwa,Cena) VALUES (10,'FC-R3000',324.99)
+
+
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (1,'AC-232',29.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (2,'SLX',129.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (3,'CN-837',49.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (4,'107-11',99.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (5,'Deore',80.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (6,'XT-CN',110.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (7,'Ultegra',139.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (8,'Ultegra',139.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (9,'AC-102',24.99)
+INSERT INTO Czesci(IdLancucha,Nazwa,Cena) VALUES (10,'AC-121',35.99)
+
+
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (1,'Race King',67.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (2,'Race King',67.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (3,'Race King',67.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (4,'Marathon',89.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (5,'Marathon',89.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (6,'Marathon',89.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (7,'Marathon',89.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (8,'Roller Sport',40.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (9,'Roller Sport',40.99)
+INSERT INTO Czesci(IdOpony,Nazwa,Cena) VALUES (10,'Roller Sport',40.99)
+
+
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (1,'Deore',56.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (2,'Deore-HB',99.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (3,'Deore-NT',76.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (4,'A1732',69.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (5,'A1732',89.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (6,'A1232',129.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (7,'StraightPull-T',499.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (8,'StraightPull-T',499.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (9,'StraightPull-T',499.99)
+INSERT INTO Czesci(IdPiasty,Nazwa,Cena) VALUES (10,'StraightPull-P',219.99)
+
+
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (1,'X3',89.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (2,'X3',109.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (3,'NX',289.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (4,'GX',449.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (5,'XX1',2739.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (6,'Altus',49.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (7,'Dore',109.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (8,'Dore-RD',159.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (9,'Ultegra',179.99)
+INSERT INTO Czesci(IdPrzerzutki,Nazwa,Cena) VALUES (10,'Alivio',129.99)
+
+
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (1,'Series-H',59.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (2,'Series-S',59.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (3,'Series-R',59.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (4,'Derry',64.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (5,'Zone',64.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (6,'Monza',61.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (7,'Veno',59.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (8,'FLX',65.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (9,'Zoo-M',65.99)
+INSERT INTO Czesci(IdSiodla,Nazwa,Cena) VALUES (10,'Zoo-L',49.99)
+
+
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (1,'MTB',54.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (2,'TREK',59.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (3,'30-S',599.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (4,'Jody',549.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (5,'Recon',759.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (6,'Reba',1599.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (7,'XCT',179.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (8,'XCM',199.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (9,'XCT-SR',209.99)
+INSERT INTO Czesci(IdWidelca,Nazwa,Cena) VALUES (10,'NRX',499.99)
+
+
+
+--Uslugi
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaDetki',15.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaKasety',30.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaKola',30.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaKorby',30.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('RegulacjaLancucha',10.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaOpony',20.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WyminaPiasty',30.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaPrzerzutek',30.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('WymianaWidelca',30.00)
+INSERT INTO Usluga(Nazwa,Cena) VALUES ('PrzegladRoweru',10.00)
+
+
+--Pracownik
+INSERT INTO Pracownik(Imie,Nazwisko) VALUES ('Ferdynand','Kowalski')
+
+
+--Zakup
+INSERT INTO Zakup(IdCzesci,IdUslugi,IdPracownika,CenaUslugi,IloscUslug,CenaCzesci,IloscCzesci,Suma) VALUES (11,1,1,15.00,1,29.99,1,44.99)
+INSERT INTO Zakup(IdCzesci,IdUslugi,IdPracownika,CenaUslugi,IloscUslug,CenaCzesci,IloscCzesci,Suma) VALUES (54,6,1,20.00,2,89.99,2,219.98)
+INSERT INTO Zakup(IdCzesci,IdPracownika,CenaCzesci,IloscCzesci,Suma) VALUES (19,1,19.99,2,39.98)
+INSERT INTO Zakup(IdCzesci,IdPracownika,CenaCzesci,IloscCzesci,Suma) VALUES (81,1,59.99,1,59.99)
+INSERT INTO Zakup(IdCzesci,IdPracownika,CenaCzesci,IloscCzesci,Suma) VALUES (90,1,49.99,1,49.99)
+INSERT INTO Zakup(IdCzesci,IdPracownika,CenaCzesci,IloscCzesci,Suma) VALUES (52,1,67.99,1,67.99)
+INSERT INTO Zakup(IdCzesci,IdPracownika,CenaCzesci,IloscCzesci,Suma) VALUES (41,1,29.99,1,29.99)
+INSERT INTO Zakup(IdCzesci,IdUslugi,IdPracownika,CenaUslugi,IloscUslug,CenaCzesci,IloscCzesci,Suma) VALUES (74,8,1,30.00,1,449.99,1,479.99)
+INSERT INTO Zakup(IdUslugi,IdPracownika,CenaUslugi,IloscUslug,Suma) VALUES (5,1,10.00,1,10.00)
+INSERT INTO Zakup(IdUslugi,IdPracownika,CenaUslugi,IloscUslug,Suma) VALUES (10,1,10.00,1,10.00)
+
+
+--Klient
+INSERT INTO Klient(IdZakupu,Imie,Nazwisko) VALUES (1,'Tomasz','Tromba')
+INSERT INTO Klient(IdZakupu,Imie,Nazwisko) VALUES (4,'Wojciech','Lampka')
+INSERT INTO Klient(IdZakupu,Imie,Nazwisko) VALUES (5,'Maria','Zajonc')
+INSERT INTO Klient(IdZakupu,Imie,Nazwisko) VALUES (9,'Maciej','Kiszka')
+*/
